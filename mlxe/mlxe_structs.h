@@ -6,7 +6,7 @@
 /*   By: lfarhi <lfarhi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 16:49:54 by lfarhi            #+#    #+#             */
-/*   Updated: 2024/06/13 17:37:31 by lfarhi           ###   ########.fr       */
+/*   Updated: 2024/06/14 15:47:10 by lfarhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@
 # define SUCCESS 1
 # define FAILURE 0
 
+# define MLXE_ERROR_NONE 0
+# define MLXE_ERROR_MALLOC 1
+# define MLXE_ERROR_OPEN_FILE 2
+# define MLXE_ERROR_READ_FILE 3
+
 typedef int				t_bool;
 typedef struct s_window	t_window;
 typedef unsigned int	t_uint;
@@ -38,6 +43,12 @@ typedef struct s_rect
 	int	width;
 	int	height;
 }				t_rect;
+
+typedef struct s_coords
+{
+	t_rect	src;
+	t_rect	dest;
+}				t_coords;
 
 typedef struct s_vector2
 {
@@ -62,6 +73,21 @@ typedef struct s_sprite
 	t_vector2	offset;
 }				t_sprite;
 
+typedef struct s_font
+{
+	t_texture	*texture;
+	t_color		color;
+	int			size;
+	int			widths[128 - 32][2];
+}				t_font;
+
+typedef struct s_rgb
+{
+	int	r;
+	int	g;
+	int	b;
+}				t_rgb;
+
 typedef struct s_garbage
 {
 	void	*ptr;
@@ -79,6 +105,7 @@ typedef struct s_window
 	void		(*funct_ptr)(t_window *, void *data);
 	char		keys[MAX_ALL_KEYS];
 	t_vector2	mouse;
+	int			error;
 }				t_window;
 
 #endif
